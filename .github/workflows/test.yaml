@@ -1,21 +1,17 @@
 name: auto-testing
-on: [push]
+on:
+  pull_request:
+    branches: [ main ]
 jobs:
   run:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
-      # - name: Set up Python 3.9
-      #   uses: actions/setup-python@v2
-      #   with:
-      #     python-version: 3.9
       - name: sanity-check
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
       - name: test-cases
-        # env:
-          # repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python test.py
