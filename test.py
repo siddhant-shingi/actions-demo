@@ -9,4 +9,4 @@ model = pickle.load(open("models/model.pkl", "rb"))
 X, y = make_classification(1000,n_features = 10)
 
 # Test on the model
-print(model.score(X, y))
+print("Changed Model Accuracy:", model.score(X, y))
