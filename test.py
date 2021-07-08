@@ -1,11 +1,12 @@
 import pickle
-from sklearn.datasets import make_regression
-import json
+from sklearn.datasets import make_classification
+from sklearn.metrics import accuracy_score
+import numpy as np
 
 model = pickle.load(open("models/model.pkl", "rb"))
 
 # Generate some data for validation
-X_test, y = make_regression(1000,n_features = 11)
+X, y = make_classification(1000,n_features = 10)
 
 # Test on the model
-y_hat = model.predict(X_test)
+print("Changed Model Accuracy:", model.score(X, y))

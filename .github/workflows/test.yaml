@@ -1,15 +1,25 @@
 name: auto-testing
-on: [push]
+on:
+  pull_request:
+    branches: [ main ]
 jobs:
   run:
     runs-on: [ubuntu-latest]
-    container: docker://dvcorg/cml-py3:latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       - name: sanity-check
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Your ML workflow goes here
           pip install -r requirements.txt
-          python test.py
+      - name: test-cases
+        run: |
+          python test.py > results.txt
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: results.txt

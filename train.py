@@ -1,18 +1,19 @@
-from sklearn.datasets import make_regression
-from sklearn.linear_model import LinearRegression
+from sklearn.datasets import make_classification
+from sklearn.linear_model import LogisticRegression
 import pickle
 import os
 
-X, y = make_regression(10000,n_features = 10)
+X, y = make_classification(1000,n_features = 10)
 
 # Train a model
-reg = LinearRegression().fit(X, y.ravel())
+clf = LogisticRegression(random_state=0).fit(X, y)
+
 # Print out training r2
-print(reg.score(X,y.ravel() ))
+print(clf.score(X, y))
 
 # Write the model to a file
 if not os.path.isdir("models/"):
     os.mkdir("models")
 
 filename = 'models/model.pkl'
-pickle.dump(reg, open(filename, 'wb'))
+pickle.dump(clf, open(filename, 'wb'))
