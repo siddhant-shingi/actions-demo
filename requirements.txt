@@ -5,4 +5,3 @@ pytz==2020.1
 scipy
 six==1.15.0
 threadpoolctl==2.1.0
-sklearn
